@@ -13,4 +13,4 @@ class DatapointSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Datapoint
-        fields = ('id', 'activity', 'reps', 'timestamp', 'url')
+        fields = ('id', 'activity', 'reps', 'timestamp')

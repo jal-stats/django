@@ -28,7 +28,7 @@ activities_router = routers.NestedSimpleRouter(router,
                                                lookup='activity')
 activities_router.register(r'datapoints',
                            stats_views.DatapointViewSet,
-                           base_name='activities')
+                           base_name='activities-datapoints')
 
 
 urlpatterns = [
