@@ -16,7 +16,7 @@ class Activity(models.Model):
 class Datapoint(models.Model):
     activity = models.ForeignKey('Activity')
     reps = models.PositiveIntegerField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField()
 
     def __str__(self):
         return '{} {} at {}'.format(self.reps,
