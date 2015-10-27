@@ -1,12 +1,13 @@
 # from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Datapoint
+from .models import Datapoint, Activity
 from .serializers import ActivitySerializer, DatapointSerializer
 
 # Create your views here.
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
+    queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
     def get_queryset(self):
@@ -18,5 +19,5 @@ class DatapointViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Datapoint.objects.all().filter(
-            user=self.request.user,
+            # user=self.request.user,
             activity=self.request.query_params['activity'])
