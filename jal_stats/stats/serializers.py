@@ -13,4 +13,9 @@ class DatapointSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Datapoint
-        fields = ('id', 'activity', 'reps', 'timestamp')
+        fields = ('id', 'activity', 'reps', 'date')
+
+    def create(self, validated_data):
+        validated_data['activity'] = self.context['activity']
+        datapoint = Datapoint.objects.create(**validated_data)
+        return datapoint
