@@ -10,8 +10,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    def get_queryset(self):
-        return self.request.user.activity_set.all()
+    # def get_queryset(self):
+    #     return self.request.user.activity_set.all()
 
 
 class DatapointViewSet(viewsets.ModelViewSet):
