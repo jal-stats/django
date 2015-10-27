@@ -19,7 +19,7 @@ class DatapointViewSet(viewsets.ModelViewSet):
     serializer_class = DatapointSerializer
 
     def get_queryset(self):
-        activity = get_object_or_404(Activity, pk=1)
+        activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
         return Datapoint.objects.all().filter(
             # user=self.request.user,
-            activity=activity)
+            pk=activity.pk)
