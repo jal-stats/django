@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets  # , serializers
 from .models import Datapoint, Activity
 from .serializers import ActivitySerializer, DatapointSerializer
 
@@ -22,4 +22,13 @@ class DatapointViewSet(viewsets.ModelViewSet):
         activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
         return Datapoint.objects.all().filter(
             # user=self.request.user,
-            pk=activity.pk)
+            activity=activity)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context().copy()
+        activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
+        context['activity'] = activity
+        return context
+
+    # def perform_create(self, serializer):
+    #     serializers.save(user=self.request.user)

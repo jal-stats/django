@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.utils.timezone
 
 
 class Migration(migrations.Migration):
@@ -13,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Activity',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('full_description', models.CharField(max_length=255)),
                 ('units', models.CharField(max_length=40)),
             ],
@@ -21,9 +22,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Datapoint',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('reps', models.PositiveIntegerField()),
-                ('timestamp', models.DateTimeField(auto_now_add=True)),
+                ('date', models.DateField(default=django.utils.timezone.now)),
                 ('activity', models.ForeignKey(to='stats.Activity')),
             ],
         ),
