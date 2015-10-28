@@ -21,14 +21,15 @@ from stats import views as stats_views
 
 
 router = routers.SimpleRouter()
+# router.register(r'users', stats_views.UserViewSet)
 router.register(r'activities', stats_views.ActivityViewSet)
 
 activities_router = routers.NestedSimpleRouter(router,
                                                r'activities',
                                                lookup='activity')
-activities_router.register(r'datapoints',
-                           stats_views.DatapointViewSet,
-                           base_name='activities-datapoints')
+activities_router.register(r'stats',
+                           stats_views.StatViewSet,
+                           base_name='activities-stats')
 
 
 urlpatterns = [

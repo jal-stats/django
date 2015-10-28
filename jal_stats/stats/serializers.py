@@ -1,5 +1,18 @@
+# from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Activity, Datapoint
+from .models import Activity, Stat
+
+
+class StatSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Stat
+        fields = ('id', 'activity', 'reps', 'date')
+
+    def create(self, validated_data):
+        validated_data['activity'] = self.context['activity']
+        stat = Stat.objects.create(**validated_data)
+        return stat
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
@@ -9,13 +22,16 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'full_description', 'units', 'url')
 
 
-class DatapointSerializer(serializers.HyperlinkedModelSerializer):
+class ActivityListSerializer(ActivitySerializer):
+    stats = StatSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Datapoint
-        fields = ('id', 'activity', 'reps', 'date')
+        model = Activity
+        fields = tuple(list(ActivitySerializer.Meta.fields) + ['stats'])
 
-    def create(self, validated_data):
-        validated_data['activity'] = self.context['activity']
-        datapoint = Datapoint.objects.create(**validated_data)
-        return datapoint
+
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
+#
+#     class Meta:
+#         model = User
+#         fields = ('id', 'username', 'email', 'activities')

@@ -1,10 +1,16 @@
-# from django.shortcuts import render
+# from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets  # , serializers
-from .models import Datapoint, Activity
-from .serializers import ActivitySerializer, DatapointSerializer
+from rest_framework import viewsets, mixins, permissions  # , serializers
+from .models import Stat, Activity
+# from .permissions import IsAPIUser
+from .serializers import ActivitySerializer, ActivityListSerializer, StatSerializer
 
 # Create your views here.
+
+
+# class UserViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
+#     permission_classes = (permissions.IsAuthenticated,
+#                           IsAPIUser)
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
@@ -14,13 +20,20 @@ class ActivityViewSet(viewsets.ModelViewSet):
     # def get_queryset(self):
     #     return self.request.user.activity_set.all()
 
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ActivitySerializer
+        else:
+            return ActivityListSerializer
 
-class DatapointViewSet(viewsets.ModelViewSet):
-    serializer_class = DatapointSerializer
+
+class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
+                  mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+    serializer_class = StatSerializer
 
     def get_queryset(self):
         activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
-        return Datapoint.objects.all().filter(
+        return Stat.objects.all().filter(
             # user=self.request.user,
             activity=activity)
 
