@@ -3,11 +3,18 @@ from rest_framework import serializers
 from .models import Activity, Stat
 
 
-class StatSerializer(serializers.HyperlinkedModelSerializer):
+class StatAddSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Stat
-        fields = ('id', 'activity', 'reps', 'date')
+        fields = ('id', 'reps', 'date')
+
+
+class StatSerializer(StatAddSerializer):
+
+    class Meta:
+        model = Stat
+        fields = tuple(list(StatAddSerializer.Meta.fields) + ['activity'])
 
     def create(self, validated_data):
         validated_data['activity'] = self.context['activity']
