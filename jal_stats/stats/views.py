@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins, permissions  # , serializers
 from .models import Stat, Activity
 # from .permissions import IsAPIUser
-from .serializers import ActivitySerializer, ActivityListSerializer, StatSerializer
+from .serializers import ActivitySerializer, ActivityListSerializer, StatAddSerializer, StatSerializer
 
 # Create your views here.
 
@@ -31,6 +31,14 @@ class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     serializer_class = StatSerializer
 
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return StatAddSerializer
+        else:
+            return StatSerializer
+
+
     def get_queryset(self):
         activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
         return Stat.objects.all().filter(
@@ -42,6 +50,7 @@ class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
         activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
         context['activity'] = activity
         return context
+
 
     # def perform_create(self, serializer):
     #     serializers.save(user=self.request.user)
