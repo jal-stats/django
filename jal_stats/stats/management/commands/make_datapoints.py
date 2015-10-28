@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.management.base import BaseCommand
 from faker import Faker
 import json
@@ -20,7 +21,7 @@ class Command(BaseCommand):
                     'fields': {
                         'activity': activity,
                         'reps': random.randint(0, 30),
-                        'date': fake.date(),
+                        'date': datetime.date(fake.date_time_this_year()),
                     }
                 }
                 stats.append(stat)
