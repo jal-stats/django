@@ -14,12 +14,12 @@ class StatSerializer(serializers.HyperlinkedModelSerializer):
         stat = Stat.objects.create(**validated_data)
         return stat
 
-
-class StatSerializer(StatSerializer):
-
-    class Meta:
-        model = Stat
-        fields = tuple(list(StatAddSerializer.Meta.fields) + ['activity'])
+# 
+# class StatSerializer(StatSerializer):
+#
+#     class Meta:
+#         model = Stat
+#         fields = tuple(list(StatAddSerializer.Meta.fields) + ['activity'])
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
