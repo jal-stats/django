@@ -33,10 +33,10 @@ class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
 
 
     def get_serializer_class(self):
-        if self.action == 'create':
-            return StatAddSerializer
-        else:
+        if self.action in ['list']:
             return StatSerializer
+        else:
+            return StatAddSerializer
 
 
     def get_queryset(self):
