@@ -127,7 +127,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_AllOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # if DEBUG is True:
 #     CORS_ORIGIN_ALLOW_ALL = True
