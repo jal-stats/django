@@ -128,7 +128,14 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_AllOW_ALL = True
-
+CORS_ALLOW_HEADERS = (
+    'accept-encoding',
+    'x-requested-with',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken',
+    )
 # if DEBUG is True:
 #     CORS_ORIGIN_ALLOW_ALL = True
 # else:
