@@ -4,7 +4,8 @@ from .models import Activity, Stat
 
 
 class StatAddSerializer(serializers.HyperlinkedModelSerializer):
-
+    model = Stat
+    
     class Meta:
         model = Stat
         fields = ('id', 'reps', 'date')

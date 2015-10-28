@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins, permissions  # , serializers
 from .models import Stat, Activity
 # from .permissions import IsAPIUser
-from .serializers import ActivitySerializer, ActivityListSerializer, StatSerializer
+from .serializers import ActivitySerializer, ActivityListSerializer, StatAddSerializer, StatSerializer
 
 # Create your views here.
 
