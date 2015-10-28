@@ -2,7 +2,7 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 from faker import Faker
 import json
-from random import random
+from random import randint
 from stats.models import Activity
 
 
@@ -14,14 +14,15 @@ class Command(BaseCommand):
         fake = Faker()
         stats = []
 
+
         for activity in Activity.objects.all():
-            for _ in range(random.randint(3, 35)):
+            for n in range(randint(3, 10), randint(12, 28)):
                 stat = {
                     'model': 'stats.Stat',
                     'fields': {
-                        'activity': activity,
-                        'reps': random.randint(0, 30),
-                        'date': datetime.date(fake.date_time_this_year()),
+                        'activity': activity.pk,
+                        'reps': randint(0, 30),
+                        'date': str(datetime.date(datetime(2015, 10, n))),
                     }
                 }
                 stats.append(stat)
