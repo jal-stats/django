@@ -1,19 +1,16 @@
 # from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions  # , serializers
+from rest_framework import viewsets, mixins, permissions  # , serializers
 from .models import Stat, Activity
-from .permissions import IsAPIUser
+# from .permissions import IsAPIUser
 from .serializers import ActivitySerializer, ActivityListSerializer, StatSerializer
 
 # Create your views here.
 
 
-# class UserViewSet(viewsets.ModelViewSet):
+# class UserViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 #     permission_classes = (permissions.IsAuthenticated,
 #                           IsAPIUser)
-#
-#     def list(self, request, *args, **kwargs):
-#         return []
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
@@ -30,7 +27,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
             return ActivityListSerializer
 
 
-class StatViewSet(viewsets.ModelViewSet):
+class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
+                  mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     serializer_class = StatSerializer
 
     def get_queryset(self):
