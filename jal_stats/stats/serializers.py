@@ -15,6 +15,13 @@ class StatSerializer(serializers.HyperlinkedModelSerializer):
         return stat
 
 
+class StatSerializer(StatSerializer):
+
+    class Meta:
+        model = Stat
+        fields = tuple(list(StatAddSerializer.Meta.fields) + ['activity'])
+
+
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
