@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions  # , serializers
 from .models import Stat, Activity
 from .permissions import IsAPIUser
-from .serializers import ActivitySerializer, StatSerializer
+from .serializers import ActivitySerializer, ActivityListSerializer, StatSerializer
 
 # Create your views here.
 
@@ -22,6 +22,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
     # def get_queryset(self):
     #     return self.request.user.activity_set.all()
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ActivitySerializer
+        else:
+            return ActivityListSerializer
 
 
 class StatViewSet(viewsets.ModelViewSet):

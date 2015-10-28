@@ -16,11 +16,18 @@ class StatSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Activity
+        fields = ('id', 'full_description', 'units', 'url')
+
+
+class ActivityListSerializer(ActivitySerializer):
     stats = StatSerializer(many=True, read_only=True)
 
     class Meta:
         model = Activity
-        fields = ('id', 'full_description', 'units', 'url', 'stats')
+        fields = tuple(list(ActivitySerializer.Meta.fields) + ['stats'])
 
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):

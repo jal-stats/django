@@ -19,7 +19,7 @@ class Activity(models.Model):
 
 
 class Stat(models.Model):
-    activity = models.ForeignKey('Activity')
+    activity = models.ForeignKey('Activity', related_name='stats')
     reps = models.PositiveIntegerField()
     date = models.DateField(default=timezone.now)
 
