@@ -1,29 +1,27 @@
 # from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from .models import Activity, Stat
 
 
 class StatAddSerializer(serializers.HyperlinkedModelSerializer):
     model = Stat
-    
-    class Meta:
-        model = Stat
-        fields = ('id', 'reps', 'date')
-
-
-class StatSerializer(StatAddSerializer):
+    activity_id = serializers.PrimaryKeyRelatedField(many=False,
+                                                     read_only=True,
+                                                     source='activity')
 
     class Meta:
         model = Stat
-        fields = tuple(list(StatAddSerializer.Meta.fields) + ['activity'])
+        fields = ('id', 'activity_id', 'reps', 'date')
 
     def create(self, validated_data):
-        validated_data['activity'] = self.context['activity']
+        # activity = get_object_or_404(Activity, pk=self.context['activity_id'])
+        validated_data['activity_id'] = self.context['activity_id']
         stat = Stat.objects.create(**validated_data)
         return stat
 
-# 
-# class StatSerializer(StatSerializer):
+
+# class StatSerializer(StatAddSerializer):
 #
 #     class Meta:
 #         model = Stat
@@ -38,7 +36,7 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ActivityListSerializer(ActivitySerializer):
-    stats = StatSerializer(many=True, read_only=True)
+    stats = StatAddSerializer(many=True, read_only=True)
 
     class Meta:
         model = Activity

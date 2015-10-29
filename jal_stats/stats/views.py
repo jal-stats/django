@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins, permissions  # , serializers
 from .models import Stat, Activity
 # from .permissions import IsAPIUser
-from .serializers import ActivitySerializer, ActivityListSerializer, StatAddSerializer, StatSerializer
+from .serializers import ActivitySerializer, ActivityListSerializer, StatAddSerializer  # , StatSerializer
 
 # Create your views here.
 
@@ -29,26 +29,26 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
 class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin):
-    serializer_class = StatSerializer
+    serializer_class = StatAddSerializer
 
-
-    def get_serializer_class(self):
-        if self.action in ['list']:
-            return StatSerializer
-        else:
-            return StatAddSerializer
+    #
+    # def get_serializer_class(self):
+    #     if self.action in ['list']:
+    #         return StatSerializer
+    #     else:
+    #         return StatAddSerializer
 
 
     def get_queryset(self):
         activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
-        return Stat.objects.all().filter(
+        return self.queryset.filter(
             # user=self.request.user,
             activity=activity)
 
     def get_serializer_context(self):
         context = super().get_serializer_context().copy()
-        activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
-        context['activity'] = activity
+        # activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
+        context['activity_id'] = self.kwargs['activity_pk']
         return context
 
 
