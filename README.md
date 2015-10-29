@@ -7,18 +7,18 @@
 
 ## About This Service
 
-### API Endpoints (all prefixed with /api/)
+### API Endpoints (all prefixed with `api/`)
 
 Verb   | URL                                       | Action
------- | ---                                       | -------
-GET    | /activities                               | Show a list of all activities I am tracking, and links to their individual pages
-POST   | /activities                               | Create a new activity for me to track.
-GET    | /activities/{id}                          | Show information about one activity I am tracking, and give me the data I have recorded for that activity.
-PATCH  | /activities/{id}                          | Update one activity I am tracking, changing attributes such as its name. Does not allow for changing tracked data.
-DELETE | /activities/{id}                          | Delete one activity I am tracking. This should remove tracked data for that activity as well.
-POST   | /activities/{activity_id}/stats           | Add tracked data for a day. The data sent with this should include the day tracked.
-PUT    | /activities/{activity_id}/stats/{stat_id} | Override the data for a day already recorded.
-DELETE | /activities/{activity_id}/stats/{stat_id} | Remove tracked data for a day.
+------ | ---                                        | -------
+GET    | /activities/                               | Show a list of all activities I am tracking, and links to their individual pages
+POST   | /activities/                               | Create a new activity for me to track.
+GET    | /activities/{id}/                          | Show information about one activity I am tracking, and give me the data I have recorded for that activity.
+PATCH  | /activities/{id}/                          | Update one activity I am tracking, changing attributes such as its name. Does not allow for changing tracked data.
+DELETE | /activities/{id}/                          | Delete one activity I am tracking. This should remove tracked data for that activity as well.
+POST   | /activities/{activity_id}/stats/           | Add tracked data for a day. The data sent with this should include the day tracked.
+PUT    | /activities/{activity_id}/stats/{stat_id}/ | Override the data for a day already recorded.
+DELETE | /activities/{activity_id}/stats/{stat_id}/ | Remove tracked data for a day.
 
 
 Located at `host/` and also `host/questions/`, where `host` is the location of the server (usually `localhost:8000` if using Django's `runserver`; `https://rocky-falls-8228.herokuapp.com/` if accessing on the web).
