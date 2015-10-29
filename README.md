@@ -36,9 +36,9 @@ Located at `host/` and also `host/questions/`, where `host` is the location of t
 
 * This app is set up to run on PostgreSQL. It is set it up to have a local (development) database named `jal_stats` with a user of `jal_stats` and a password of `password`. The database name, user, and password can all be configured to your preferences in the `django/jal_stats/jal_stats/settings.py` file. If you do not have PostgreSQL on your machine, [follow these instructions](https://github.com/tiyd-python-2015-08/course-resources/blob/master/week7/PostgreSQL-and-Django.md).
 
-* **Running the site with Django** requires more command line. Navigate to `django/jal_stats` and enter `python manage.py runserver` This will take over the current command-line program's window until you stop the server. Kill the process by pressing `Ctrl+C` or quitting the command-line program entirely.
+* **Running the site with Django** is done from the directory `django/jal_stats` by entering `python manage.py runserver`. This will take over the current command-line program's window until you stop the server. Kill the process by pressing `Ctrl+C` or quitting the command-line program entirely.
 
-* **Running the site with your own heroku local/web** requires that you have your machine set up with [heroku and heroku toolbelt](https://devcenter.heroku.com/articles/getting-started-with-python#set-up) and [create a heroku account](https://signup.heroku.com/).
+* **Running the site with your own heroku local/web** requires that you have your machine set up with [heroku and heroku toolbelt](https://devcenter.heroku.com/articles/getting-started-with-python#set-up) and have a [heroku account](https://signup.heroku.com/).
  * Once you have these installed and have a heroku account, navigate to the `django` directory and run the following commands (making note of and copying the secret key when it is generated):
  ```
  $ heroku create
