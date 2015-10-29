@@ -5,7 +5,6 @@ from .models import Activity, Stat
 
 
 class StatAddSerializer(serializers.HyperlinkedModelSerializer):
-    model = Stat
     activity_id = serializers.PrimaryKeyRelatedField(many=False,
                                                      read_only=True,
                                                      source='activity')

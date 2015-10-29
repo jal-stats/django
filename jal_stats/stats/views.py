@@ -30,6 +30,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
 class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
                   mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     serializer_class = StatAddSerializer
+    queryset = Stat.objects.all()
 
     #
     # def get_serializer_class(self):
@@ -41,7 +42,7 @@ class StatViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
 
     def get_queryset(self):
         activity = get_object_or_404(Activity, pk=self.kwargs['activity_pk'])
-        return self.queryset.filter(
+        return Stat.objects.all().filter(
             # user=self.request.user,
             activity=activity)
 

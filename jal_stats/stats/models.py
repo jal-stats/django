@@ -25,7 +25,7 @@ class Stat(models.Model):
 
     class Meta:
         ordering = ['-date']
-        unique_together = ('activity', 'date')
+        # unique_together = ('activity', 'date')
 
     def __str__(self):
         return '{} {} at {}'.format(self.reps,
